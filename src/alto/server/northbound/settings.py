@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'drf_spectacular',
 ]
 
 MIDDLEWARE = [
@@ -68,6 +69,17 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'alto.server.northbound.wsgi.application'
+
+# care of OpenAPI, in code-first manner
+REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'openalto/alto northbound API',
+    'DESCRIPTION': 'openalto/alto northbound API',
+    'VERSION': '',
+    'SERVE_INCLUDE_SCHEMA': False,
+}
 
 
 # Database

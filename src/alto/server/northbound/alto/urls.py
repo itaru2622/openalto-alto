@@ -1,5 +1,5 @@
 from django.urls import path
-from rest_framework.schemas import get_schema_view
+from drf_spectacular.views import SpectacularAPIView
 
 from alto.config import Config
 
@@ -32,8 +32,7 @@ def generate_northbound_routes():
             urlpatterns.append(path('tips/<resource_id>/<digest>/ug/<int:start_seq>/<int:end_seq>',
                                     tips_data_view, name='{}:metadata'.format(resource_id)))
 
-    urlpatterns.append(path('openapi.yaml', get_schema_view(
-        title="openalto/alto northbound API", description="openalto/alto northbound API"), name='openapi-schema'))
+    urlpatterns.append(path('openapi.yaml', SpectacularAPIView.as_view(), name='openapi_spec'))
     return urlpatterns
 
 
