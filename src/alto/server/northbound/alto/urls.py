@@ -1,5 +1,5 @@
 from django.urls import path
-from drf_spectacular.views import SpectacularAPIView
+from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
 
 from alto.config import Config
 
@@ -33,6 +33,10 @@ def generate_northbound_routes():
                                     tips_data_view, name='{}:metadata'.format(resource_id)))
 
     urlpatterns.append(path('openapi.yaml', SpectacularAPIView.as_view(), name='openapi_spec'))
+    urlpatterns += [
+        path('openapi/swagger-ui/', SpectacularSwaggerView.as_view(url_name='openapi_spec'), name='swagger-ui'),
+        path('openapi/redoc/',      SpectacularRedocView.as_view(url_name='openapi_spec'), name='redoc'),
+    ]
     return urlpatterns
 
 
